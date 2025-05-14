@@ -1,11 +1,11 @@
-import { useState, useMemo } from 'react'
+import { useState, useMemo, useRef } from 'react'
 
 function App() {
-  const [nome, setNome] = useState('')
+  const nomeRef = useRef()
   const [user, setUser] = useState('')
   const [password, setPassword] = useState('')
-  const [spec, setSpec] = useState('')
-  const [years, setYears] = useState('')
+  const specRef = useRef()
+  const yearsRef = useRef()
   const [description, setDescription] = useState('')
 
   const letters = "abcdefghijklmnopqrstuvwxyz";
@@ -45,6 +45,11 @@ function App() {
 
   const handleSubmit = (e) => {
     e.preventDefault()
+
+    const nome = nomeRef.current.value
+    const spec = specRef.current.value
+    const years = yearsRef.current.value
+
     if (
       !nome.trim() ||
       !user.trim() ||
@@ -77,8 +82,7 @@ function App() {
 
           <input type="text"
             placeholder='Nome completo'
-            value={nome}
-            onChange={(e) => setNome(e.target.value)}
+            ref={nomeRef}
           />
 
           <input type="text"
@@ -104,8 +108,7 @@ function App() {
           )}
 
           <select
-            value={spec}
-            onChange={(e) => setSpec(e.target.value)}>
+            ref={specRef}>
             <option value="" disabled>Seleziona un'opzione</option>
             <option value="Full-Stack">Full-stack</option>
             <option value="Frontend">Frontend</option>
@@ -116,8 +119,7 @@ function App() {
           <input type="number"
             placeholder='Anni di esperienza'
             min={'0'}
-            value={years}
-            onChange={(e) => setYears(e.target.value)}
+            ref={yearsRef}
           />
 
           <textarea type="text"
